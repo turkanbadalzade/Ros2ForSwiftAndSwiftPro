@@ -14,6 +14,9 @@
  //#include <sensor_msgs/JointState.h>
  #include <sensor_msgs/msg/joint_state.hpp>
  #include <tf2_ros/transform_broadcaster.h>
+ #include <tf2/LinearMath/Quaternion.h>
+ #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+ 
  #include <cmath>
  
  #define MATH_PI 				3.141592653589793238463
@@ -196,7 +199,11 @@
 		 odom_trans.transform.translation.x = 0;
 		 odom_trans.transform.translation.y = 0;
 		 odom_trans.transform.translation.z = 0.0;
-		 odom_trans.transform.rotation = tf2_ros::createQuaternionMsgFromYaw(10);
+		 //odom_trans.transform.rotation = tf2_ros::createQuaternionMsgFromYaw(10);
+
+  		 tf2::Quaternion q;
+  		 q.setRPY(0, 0, 10);
+		 odom_trans.transform.rotation = tf2::toMsg(q);
 		 
 		 pub->publish(joint_state);
 		 broadcaster.sendTransform(odom_trans);
