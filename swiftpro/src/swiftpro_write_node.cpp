@@ -20,6 +20,7 @@
  #include "swiftpro/msg/status.hpp"
  #include "swiftpro/msg/position.hpp"
  #include "swiftpro/msg/angle4th.hpp"
+ #include <rclcpp/executors.hpp>
  
  serial::Serial _serial;				// serial object
  swiftpro::msg::SwiftproState pos;
@@ -190,8 +191,8 @@
 	 auto sub1 = node->create_subscription<swiftpro::msg::Position>("position_write_topic", 1, position_write_callback);
 	 auto sub2 = node->create_subscription<swiftpro::msg::Status>("swiftpro_status_topic", 1, swiftpro_status_callback);
 	 auto sub3 = node->create_subscription<swiftpro::msg::Angle4th>("angle4th_topic", 1, angle4th_callback);
-	 auto sub4 = node->create_subscription<std_msgs::msg::Bool>("gripper_topic", 1, gripper_callback);
-	 auto sub5 = node->create_subscription<std_msgs::msg::Bool>("pump_topic", 1, pump_callback);
+	 auto sub4 = node->create_subscription<swiftpro::msg::Status>("gripper_topic", 1, gripper_callback);
+	 auto sub5 = node->create_subscription<swiftpro::msg::Status>("pump_topic", 1, pump_callback);
 	 //ros::Publisher 	 pub = nh.advertise<swiftpro::SwiftproState>("SwiftproState_topic", 1);
 	 //ros::Rate loop_rate(20);
  
@@ -235,7 +236,8 @@
 	 while (rclcpp::ok())
 	 {
 		 pub->publish(pos);
-		 rclcpp::spin_all(node, 0s);
+		 //rclcpp::spin_all(node, 0s);
+		 rclcpp::spin(node); //spin_all is not a member of rclcpp error occured so changed to this
 		 loop_rate.sleep();
 	 }
 	 

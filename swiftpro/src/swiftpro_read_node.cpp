@@ -137,7 +137,8 @@ int main(int argc, char** argv)
 			RCLCPP_INFO(node->get_logger(), "position: %.2f %.2f %.2f %.2f\n", position[0], position[1], position[2], position[3]);
 		}
 		//ros::spinOnce();
-		rclcpp::spin_all(node, 0s);
+		//rclcpp::spin_all(node, 0);
+		rclcpp::spin(node); //spin_all is not a member of rclcpp error occured so changed to this
 		loop_rate.sleep();
 	}
 }

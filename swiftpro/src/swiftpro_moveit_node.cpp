@@ -97,7 +97,8 @@
 		 pub->publish(pos);
 		 
 		 //ros::spinOnce();
-		 rclcpp::spin_all(node, 0s);
+		 //rclcpp::spin_all(node, 0s);
+		 rclcpp::spin(node); //spin_all is not a member of rclcpp error occured so changed to this
 		 loop_rate.sleep();
 	 }		
 	 return 0;

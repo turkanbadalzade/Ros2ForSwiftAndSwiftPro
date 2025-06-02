@@ -14,6 +14,7 @@
  //#include <sensor_msgs/JointState.h>
  #include <sensor_msgs/msg/joint_state.hpp>
  #include <tf2_ros/transform_broadcaster.h>
+ #include <cmath>
  
  #define MATH_PI 				3.141592653589793238463
  #define MATH_TRANS  			57.2958    
@@ -100,7 +101,7 @@
 	 angleLeft  = angleLeft + phi;
 	 angleRight = angleRight - phi;
  
-	 if (isnan(angleRot) || isnan(angleLeft) || isnan(angleRight))
+	 if (std::isnan(angleRot) || std::isnan(angleLeft) || std::isnan(angleRight))
 		 return false;
  
 	 angle[0] = angleRot;
@@ -158,9 +159,9 @@
 	 auto pub = node->create_publisher<sensor_msgs::msg::JointState>("joint_states", 1);
 	 rclcpp::Rate loop_rate(20);
  
-	 tf2_ros::TransformBroadcaster 		broadcaster;
+	 tf2_ros::TransformBroadcaster 		broadcaster(node); //added node here
 	 sensor_msgs::msg::JointState 		joint_state;
-	 geometry_msgs::TransformStamped odom_trans;
+	 geometry_msgs::msg::TransformStamped odom_trans;
 	 
 	 odom_trans.header.frame_id = "odom";
 	 odom_trans.child_frame_id  = "Base";
@@ -201,7 +202,8 @@
 		 broadcaster.sendTransform(odom_trans);
 		 
 		 //ros::spinOnce();
-		 rclcpp::spin_all(node, 0s);
+		 //rclcpp::spin_all(node, 0s);
+		 rclcpp::spin(node); //spin_all is not a member of rclcpp error occured so changed to this
 		 loop_rate.sleep();
 	 }		
 	 return 0;
