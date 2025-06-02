@@ -6,11 +6,14 @@
  *		   David Long <xiaokun.long@ufactory.cc>	   
  */
  
-#include <ros/ros.h>
+//#include <ros/ros.h>
+#include "rclcpp/rclcpp.hpp"
 #include <serial/serial.h>
-#include <std_msgs/String.h>
+//#include <std_msgs/String.h>
+#include "std_msgs/msg/string.hpp"
 #include <string>
-#include <swiftpro/SwiftproState.h>
+//#include <swiftpro/SwiftproState.h>
+#include <swiftpro/msg/swiftpro_state.hpp>
 
 serial::Serial _serial;				// serial object
 float position[4] = {0.0};			// 3 cartesian coordinates: x, y, z(mm) and 1 angle(degree)
@@ -66,13 +69,19 @@ void handlechar(char c)
  */
 int main(int argc, char** argv)
 {	
-	ros::init(argc, argv, "swiftpro_read_node");
-	ros::NodeHandle nh;
-	swiftpro::SwiftproState swiftpro_state;
-	std_msgs::String result;
+	//ros::init(argc, argv, "swiftpro_read_node");
+	//ros::NodeHandle nh;
 
-	ros::Publisher pub = nh.advertise<swiftpro::SwiftproState>("SwiftproState_topic", 1);
-	ros::Rate loop_rate(20);
+	rclcpp::init(argc, argv);
+	auto node = rclcpp::Node::make_shared("swiftpro_read_node");
+
+	swiftpro::msg::SwiftproState swiftpro_state;
+	std_msgs::msg::String result;
+
+	//ros::Publisher pub = nh.advertise<swiftpro::SwiftproState>("SwiftproState_topic", 1);
+	//ros::Rate loop_rate(20);
+	auto pub = node->create_publisher<swiftpro::msg::SwiftproState>("SwiftproState_topic", 1);
+	rclcpp::Rate loop_rate(20);
 
 	try
 	{
@@ -81,24 +90,30 @@ int main(int argc, char** argv)
 		serial::Timeout to = serial::Timeout::simpleTimeout(1000);
 		_serial.setTimeout(to);
 		_serial.open();
-		ROS_INFO_STREAM("Port has been open successfully");
+		//ROS_INFO_STREAM("Port has been open successfully");
+		RCLCPP_INFO(node->get_logger(), "Port has been open successfully");
 	}
 	catch (serial::IOException& e)
 	{
-		ROS_ERROR_STREAM("Unable to open port");
+		//ROS_ERROR_STREAM("Unable to open port");
+		RCLCPP_ERROR(node->get_logger(), "Port has been open successfully");
 		return -1;
 	}
 	
 	if (_serial.isOpen())
 	{
-		ros::Duration(3.0).sleep();				// wait 3s
+		//ros::Duration(3.0).sleep();				// wait 3s
+		rclcpp::sleep_for(std::chrono::seconds(3));
 		_serial.write("M2019\r\n");				// detach
-		ros::Duration(0.5).sleep();				// wait 0.5s
+		//ros::Duration(0.5).sleep();				// wait 0.5s
+		rclcpp::sleep_for(std::chrono::milliseconds(500));
+		//rclcpp::sleep_for(std::chrono::duration<long double>(0.5));
 		_serial.write("M2120 V0.05\r\n");		// report position per 0.05s
-		ROS_INFO_STREAM("Start to report data");
+		//ROS_INFO_STREAM("Start to report data");
+		RCLCPP_INFO(node->get_logger(), "Start to report data");
 	}
 	
-	while (ros::ok())							// publish positionesian coordinates
+	while (rclcpp::ok())							// publish positionesian coordinates
 	{
 		if (_serial.available())
 		{
@@ -117,10 +132,12 @@ int main(int argc, char** argv)
 			swiftpro_state.x = position[0];
 			swiftpro_state.y = position[1];
 			swiftpro_state.z = position[2];
-			pub.publish(swiftpro_state);
-			ROS_INFO("position: %.2f %.2f %.2f %.2f", position[0], position[1], position[2], position[3]);
+			pub->publish(swiftpro_state);
+			//ROS_INFO("position: %.2f %.2f %.2f %.2f", position[0], position[1], position[2], position[3]);
+			RCLCPP_INFO(node->get_logger(), "position: %.2f %.2f %.2f %.2f\n", position[0], position[1], position[2], position[3]);
 		}
-		ros::spinOnce();
+		//ros::spinOnce();
+		rclcpp::spin_all(node, 0s);
 		loop_rate.sleep();
 	}
 }
