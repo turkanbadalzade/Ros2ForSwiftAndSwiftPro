@@ -2,7 +2,7 @@
 
 ## Download Serial
 
-Please clone this repo to your workspace in order to use serial package.
+Please clone this repo to your workspace in order to use serial package. Do not forget to rename the folder as serial.
 
 ```bash
 $ cd ~/ws_ros2_robot/src
