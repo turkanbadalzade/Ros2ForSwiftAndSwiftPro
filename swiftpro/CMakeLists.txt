@@ -78,7 +78,6 @@ target_link_libraries(swiftpro_moveit_node rclcpp::rclcpp ${std_msgs_TARGETS})
 target_link_libraries(swiftpro_rviz_node rclcpp::rclcpp ${std_msgs_TARGETS})
 target_link_libraries(swiftpro_read_node rclcpp::rclcpp ${std_msgs_TARGETS})
 
-include_directories(/usr/include)
 target_link_libraries(swiftpro_write_node serial)
 
 
