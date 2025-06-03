@@ -15,7 +15,7 @@ These packages support Moveit!, RViz and serial communication with swift and swi
 ## 1. Download and install
 Download ros packages for uarm swift pro
 ```bash
-$ cd ~/catkin_ws/src
+$ cd ~/ws_ros2_robot/src
 $ git clone https://github.com/uArm-Developer/RosForSwiftAndSwiftPro.git
 ```
 then manually copy package folders *swiftpro* *swift_moveit_config* and *pro_moveit_config* into a catkin_ws/src.
