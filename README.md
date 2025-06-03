@@ -1,4 +1,14 @@
 # SwiftAndProForROS
+
+## Download Serial
+
+Please clone this repo to your workspace in order to use serial package.
+
+```bash
+$ cd ~/ws_ros2_robot/src
+$ git clone https://github.com/RoverRobotics-forks/serial-ros2.git
+```
+
 This is the swift and swiftpro ROS package designed by Roger Cui(roger@ufactory.cc) and David Long (xiaokun.long@ufactory.cc).
 These packages support Moveit!, RViz and serial communication with swift and swiftpro.
 
