@@ -119,6 +119,8 @@ int main(int argc, char** argv)
 		{
 			result.data = _serial.read(_serial.available());
 			// ROS_INFO_STREAM("Read:" << result.data);
+			RCLCPP_INFO(node->get_logger(), "RAW: \"%s\"", result.data.c_str());
+
 			for (int i = 0; i < result.data.length(); i++)
 				handlechar(result.data.c_str()[i]);
 
@@ -138,7 +140,7 @@ int main(int argc, char** argv)
 		}
 		//ros::spinOnce();
 		//rclcpp::spin_all(node, 0);
-		rclcpp::spin(node); //spin_all is not a member of rclcpp error occured so changed to this
+		rclcpp::spin_some(node); //spin_all is not a member of rclcpp error occured so changed to this
 		loop_rate.sleep();
 	}
 }
