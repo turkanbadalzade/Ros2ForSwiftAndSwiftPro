@@ -8,7 +8,7 @@
   <arg name="moveit_warehouse_host" default="localhost" /> 
   
   <!-- Set parameters for the warehouse -->
-  <node name="$(anon mongo_wrapper_ros)" cwd="ROS_HOME" exec="mongo_wrapper_ros.py" pkg="warehouse_ros_mongo">
+  <node name="$(anon mongo_wrapper_ros)" cwd="$(env ROS_HOME)"  exec="mongo_wrapper_ros.py" pkg="warehouse_ros_mongo">
     <param name="warehouse_port" value="$(var moveit_warehouse_port)"/>
     <param name="warehouse_host" value="$(var moveit_warehouse_host)"/>
     <param name="warehouse_exec" value="mongod" />

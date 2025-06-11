@@ -6,21 +6,35 @@
   <arg name="robot_description" default="robot_description"/>
 
   <!-- Load universal robot description format (URDF) -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen">
-    <param if="$(var load_robot_description)" name="$(var robot_description)" command="$(find-pkg-share xacro)/xacro --inorder '$(find-pkg-share swiftpro)/urdf/pro_model.xacro'"/>
+  <group if="$(var load_robot_description)">
+    <node name="robot_state_publisher" pkg="robot_state_publisher" exec="robot_state_publisher" respawn="true" output="screen">
+  
+        <param name="$(var robot_description)" value="$(command 'xacro $(find-pkg-share swiftpro)/urdf/pro_model.xacro')" />
+
+    </node>
+  </group> 
+  <node name="robot_state_publisher" pkg="robot_state_publisher" exec="robot_state_publisher" respawn="true" output="screen">
 
     <!-- The semantic description that corresponds to the URDF -->
-    <param name="$(var robot_description)_semantic" textfile="$(find-pkg-share pro_moveit_config)/config/swiftpro.srdf" />
+    <param name="$(var robot_description)_semantic"  value="$(command 'cat $(find-pkg-share pro_moveit_config)/config/swiftpro.srdf')" />
   </node>
   
   <!-- Load updated joint limits (override information from URDF) -->
-  <group push_ros_namespace="$(var robot_description)_planning">
-    <param value="$(command 'load' )" file="$(find-pkg-share pro_moveit_config)/config/joint_limits.yaml"/>
+
+  <group>
+    <push-ros-namespace namespace="$(var robot_description)_planning"/>
+    <node name="move_group" pkg="moveit_ros_move_group" exec="move_group">
+        <param from="$(find-pkg-share pro_moveit_config)/config/joint_limits.yaml"/>
+    </node>
   </group>
 
   <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->
-  <group push_ros_namespace="$(var robot_description)_kinematics">
-    <param value="$(command 'load' )" file="$(find-pkg-share pro_moveit_config)/config/kinematics.yaml"/>
+  <group>
+    <push-ros-namespace namespace="$(var robot_description)_kinematics"/>
+    <node name="move_group" pkg="moveit_ros_move_group" exec="move_group">
+    <node name="$(anon rviz)" pkg="rviz2" exec="rviz2">
+        <param from="$(find-pkg-share pro_moveit_config)/config/kinematics.yaml"/>
+    </node>
   </group>
   
 </launch>
