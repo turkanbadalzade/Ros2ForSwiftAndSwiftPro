@@ -17,6 +17,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Base.STL"/>
+		</geometry>
+		<origin xyz = "0 0 0 " rpy = "0 0 0"/>
+	</collision>
 </link>
 
 
@@ -36,6 +42,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Link1.STL"/>
+		</geometry>
+		<origin xyz = "0 0 -0.0723" rpy = "0 0 0" />
+	</collision>
 </link>
 
 <joint name="Joint1" type="revolute">
@@ -63,6 +75,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Link2.STL"/>
+		</geometry>
+		<origin xyz = "-0.0132 0 -0.1056" rpy = "0 0 0" />
+	</collision>
 </link>
 
 <joint name="Joint2" type="revolute">
@@ -90,6 +108,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
 	</visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Link3.STL"/>
+		</geometry>
+		<origin xyz="-0.0132 0 -0.24767"/>
+	</collision>
 </link>
 
 <joint name="Joint3" type="revolute">
@@ -119,6 +143,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Link4.STL"/>
+		</geometry>
+		<origin xyz = "-0.0132 0 -0.24767" rpy = "0 0 0" />
+	</collision>
 </link>
 
 <joint name="Joint4" type="revolute">
@@ -146,6 +176,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+				<mesh filename="package://swiftpro/urdf/pro_links/Link5.STL"/>
+			</geometry>
+			<origin xyz = "0.0215 0 -0.1223" rpy = "0 0 0" />
+	</collision>
 </link>
 
 <joint name="Joint5" type="revolute">
@@ -173,6 +209,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Link6.STL"/>
+		</geometry>
+		<origin xyz = "-0.0132 0 -0.1056" rpy = "0 0 0" />
+	</collision>
 </link>
 
 <joint name="Joint6" type="revolute">
@@ -200,6 +242,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Link7.STL"/>
+		</geometry>
+		<origin xyz = "0.0323 0 -0.10258" rpy = "0 0 0" />
+	</collision>
 </link>
 
 <joint name="Joint7" type="revolute">
@@ -227,6 +275,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Gripper.STL"/>
+		</geometry>
+		<origin xyz = "-0.17201 0 -0.24651" rpy = "0 0 0" />
+	</collision>
 </link>
 
 <joint name="Joint8" type="revolute">
@@ -254,6 +308,12 @@
 			<color rgba = "0.3 0.3 0.3 1" />
 		</material>
     </visual>
+	<collision>
+		<geometry>
+			<mesh filename="package://swiftpro/urdf/pro_links/Link9.STL"/>
+		</geometry>
+		<origin xyz = "-0.19941 0 -0.27471" rpy = "0 0 0" />
+	</collision>
 </link>
 
 <joint name="Joint9" type="revolute">
