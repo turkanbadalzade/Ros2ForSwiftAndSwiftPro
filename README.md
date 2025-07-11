@@ -8,34 +8,29 @@ Please clone this repo to your workspace in order to use serial package. Do not 
 $ cd ~/ws_ros2_robot/src
 $ git clone https://github.com/RoverRobotics-forks/serial-ros2.git
 ```
-
-This is the swift and swiftpro ROS package designed by Roger Cui(roger@ufactory.cc) and David Long (xiaokun.long@ufactory.cc).
-These packages support Moveit!, RViz and serial communication with swift and swiftpro.
+These packages support Moveit2, RViz2 and serial communication with swift and swiftpro.
 
 ## 1. Download and install
-Download ros packages for uarm swift pro
+Download ros2 packages for uarm swift pro
 ```bash
 $ cd ~/ws_ros2_robot/src
-$ git clone https://github.com/uArm-Developer/RosForSwiftAndSwiftPro.git
-```
-then manually copy package folders *swiftpro* *swift_moveit_config* and *pro_moveit_config* into a catkin_ws/src.
+$ git clone https://github.com/turkanbadalzade/Ros2ForSwiftAndSwiftPro.git
 
-Install ros serial package
-```bash
-$ sudo apt-get install ros-kinetic-serial
 ```
+then manually copy package folders *swiftpro* *swift_moveit_config* and *pro_moveit_config* into a ws_ros2_robot/src.
+
 
 Compile
 ```bash
-$ catkin_make
+$ colcon build
 ```
 
 ## 2. Set up enviroment
 Source all setup.bash files to set up your enviroment.
 ```bash
 # System configure ROS environment variables automatically every time you open a ternimal
-echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
-echo "source ~/catkin_ws/devel/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+echo "source ~/ws_ros2_robot/install/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
@@ -48,36 +43,36 @@ $ sudo chmod 666 /dev/ttyACM0
 ### 3.1 Display mode: Get data from swiftpro
 Get data from serial and simulate swiftpro in RViz.
 ```bash
-roslaunch swiftpro pro_display.launch
+ros2 launch swiftpro pro_display.launch
 ```
 right now, you can drag your swiftpro and it will simulate in Rviz.
 
 ### 3.2 Control Mode: Send data to swiftpro
 Connect swiftpro, send data though serial.
 ```bash
-roslaunch swiftpro pro_control.launch
+ros2 launch swiftpro pro_control.launch
 ```
 Open another ternimal to get joint angles from Moveit!.
 ```bash
-roslaunch pro_moveit_config demo.launch
+ros2 launch pro_moveit_config demo.launch
 ```
 right now, you can do trajectory planning or grasping in moveIt!.
 
 ### 3.3 Display mode: Get data from swift
 Get data from serial and simulate swift in RViz.
 ```bash
-roslaunch swiftpro swift_display.launch
+ros2 launch swiftpro swift_display.launch
 ```
 right now, you can drag your swift and it will simulate in Rviz.
 
 ### 3.4 Control Mode: Send data to swift
 Connect swift, send data though serial.
 ```bash
-roslaunch swiftpro swift_control.launch
+ros2 launch swiftpro swift_control.launch
 ```
 Open another ternimal to get joint angles from Moveit!.
 ```bash
-roslaunch swift_moveit_config demo.launch
+ros2 launch swift_moveit_config demo.launch
 ```
 right now, you can do trajectory planning or grasping in moveIt!.
 
