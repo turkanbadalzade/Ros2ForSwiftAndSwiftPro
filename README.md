@@ -77,7 +77,6 @@ ros2 launch swift_moveit_config demo.launch
 right now, you can do trajectory planning or grasping in moveIt!.
 
 ### 3.5 About nodes and topics
-<img src="http://obmqyor62.bkt.clouddn.com/swift.jpg" width = "780" height = "350" />
 
 ### 3.6 About message
 SwiftproState.msg: includes all data about swiftpro
